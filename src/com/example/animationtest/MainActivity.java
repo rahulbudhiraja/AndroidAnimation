@@ -1,13 +1,28 @@
 package com.example.animationtest;
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PathMeasure;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +31,10 @@ public class MainActivity extends Activity
 {
 	Button IsolateButton;
 	private Animation animFadeOut;
+	Paint paint;
+	ImageView mImageView;
+	Bitmap imageViewBitmap;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +44,18 @@ public class MainActivity extends Activity
 				
 		
 		setContentView(R.layout.activity_main);
+		
+		mImageView=(ImageView)findViewById(R.id.customImageView);
+		
 		IsolateButton=(Button)findViewById(R.id.isolatebutton);
 		
 		animFadeOut = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out);
 		
-		
+		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(5);
+		paint.setColor(Color.RED);
+		paint.setAntiAlias(true);
 		
 	}
 
@@ -48,9 +74,13 @@ public class MainActivity extends Activity
 	    	 
 	    	 // When the animation finishes ,make the button invisible.
 	    	 IsolateButton.setVisibility(View.INVISIBLE);
+	    	 
+	    	 ArrowImageView.startAnimation(true);
+	    	 
 	        break;
 	     
 	      }
 	}
+	
 
-}
+};
