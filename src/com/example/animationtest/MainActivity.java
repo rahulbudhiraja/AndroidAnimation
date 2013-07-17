@@ -32,7 +32,7 @@ public class MainActivity extends Activity
 	Button IsolateButton;
 	private Animation animFadeOut;
 	Paint paint;
-	ImageView mImageView;
+	static ImageView mImageView;
 	Bitmap imageViewBitmap;
 	
 	
@@ -77,9 +77,17 @@ public class MainActivity extends Activity
 	    	 
 	    	 ArrowImageView.startAnimation(true);
 	    	 
+	    	 
+	    	 
 	        break;
 	     
 	      }
+	}
+	
+	public static void strokeFinished()
+	{
+		;
+		
 	}
 	
 
