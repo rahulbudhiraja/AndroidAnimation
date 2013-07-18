@@ -7,8 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +28,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 
 public class MainActivity extends Activity 
 {
@@ -34,6 +40,7 @@ public class MainActivity extends Activity
 	Paint paint;
 	static ImageView mImageView;
 	Bitmap imageViewBitmap;
+	private final static String TAG ="MainActivity";
 	
 	
 	@Override
@@ -77,8 +84,7 @@ public class MainActivity extends Activity
 	    	 
 	    	 ArrowImageView.startAnimation(true);
 	    	 
-	    	 
-	    	 
+	    	  
 	        break;
 	     
 	      }
@@ -86,8 +92,9 @@ public class MainActivity extends Activity
 	
 	public static void strokeFinished()
 	{
-		;
-		
+		Log.d(TAG,"reached");
+
+	    
 	}
 	
 
