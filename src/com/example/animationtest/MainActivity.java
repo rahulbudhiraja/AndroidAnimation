@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.view.animation.Animation;
@@ -35,7 +36,7 @@ import android.view.animation.TranslateAnimation;
 
 public class MainActivity extends Activity 
 {
-	Button IsolateButton;
+	ImageButton IsolateButton;
 	private Animation animFadeOut;
 	Paint paint;
 	static ImageView mImageView;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity
 		
 		mImageView=(ImageView)findViewById(R.id.customImageView);
 		
-		IsolateButton=(Button)findViewById(R.id.isolatebutton);
+		IsolateButton=(ImageButton)findViewById(R.id.isolatebutton);
 		
 		animFadeOut = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out);
 		
@@ -63,6 +64,8 @@ public class MainActivity extends Activity
 		paint.setStrokeWidth(5);
 		paint.setColor(Color.RED);
 		paint.setAntiAlias(true);
+		
+		
 		
 	}
 

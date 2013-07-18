@@ -11,13 +11,23 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
-     <Button
+    <!--  <Button
          android:id="@+id/isolatebutton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_alignBottom="@+id/customImageView"
+         android:layout_alignParentBottom="true"
          android:layout_alignParentRight="true"
          android:onClick="ButtonOnClick"
-         android:text="Isolate" />
+         android:text="Isolate" /> -->
+
+     <ImageButton
+         android:id="@+id/isolatebutton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentRight="true"
+         android:background="@android:color/transparent"
+         android:onClick="ButtonOnClick"
+         android:src="@drawable/splitbutton" />
 
 </RelativeLayout>
