@@ -11,6 +11,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.twotoasters.android.horizontalimagescroller.widget.HorizontalImageScroller;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +32,7 @@ import android.view.View;
 
 
 @SuppressLint("DrawAllocation")
-public class ArrowImageView extends ImageView {
+public class PointsImageView extends ImageView {
 	 
 	
 	Bitmap imageViewBitmap,imageViewBitmap2;
@@ -45,8 +47,10 @@ public class ArrowImageView extends ImageView {
 	int currentindex=0;
 	XmlPullParserFactory pullParserFactory;
 	private final String TAG ="XMLParser";
-		 
-	public ArrowImageView(Context context, AttributeSet set) {         
+	
+	HorizontalImageScroller scroller;
+	
+	public PointsImageView(Context context, AttributeSet set) {         
 		 super(context, set);     
 		 
 		 imageViewBitmap=BitmapFactory.decodeResource(getResources(), R.drawable.leftbg);
@@ -110,7 +114,7 @@ public class ArrowImageView extends ImageView {
 	    setMeasuredDimension(width, height);
 	}
 	
-    public ArrowImageView(Context context) {
+    public PointsImageView(Context context) {
         super(context);
     }
     
@@ -237,18 +241,7 @@ public class ArrowImageView extends ImageView {
     	Log.d(TAG,"sd");
     	
       String content = "";
-//      Iterator<Point> it = points.iterator();
-//  
-//      
-//      while(it.hasNext())
-//      {
-//        Point currPoint  = (Point) it.next();
-//        
-//        content = content + "x : " +  currPoint.x + " ";
-//        content = content + "y : " +  currPoint.y + " ";
-//        
-//        points.add(new Point(currPoint.x,currPoint.y));
-//      }
+
       
       Log.d(TAG,"size"+points.size());
      

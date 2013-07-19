@@ -9,5 +9,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-
+<com.twotoasters.android.horizontalimagescroller.widget.HorizontalImageScroller
+    android:id="@+id/scroller1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 </RelativeLayout>

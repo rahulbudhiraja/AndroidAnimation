@@ -4,13 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/Black" >
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/lines" />
+    
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -112,4 +106,12 @@
         android:paddingTop="0dp"
         android:src="@drawable/leftbg20" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/lines" />
+      
 </RelativeLayout>

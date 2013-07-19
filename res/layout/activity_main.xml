@@ -5,7 +5,7 @@
     android:background="@color/Black"
     tools:context=".MainActivity" >
 
-     <com.example.animationtest.ArrowImageView
+     <com.example.animationtest.PointsImageView
         android:id="@+id/customImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
