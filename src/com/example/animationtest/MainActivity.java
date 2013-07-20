@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
 	ProgressDialog conversionProgress;
 
 	String[] imageFilters = { "sepia", "stark", "sunnyside", "cool", "worn",
-			"grayscale" };
+			"grayscale","vignette" };
 
 	File seperatedLayersFolder;
 
@@ -213,17 +214,23 @@ public class MainActivity extends Activity {
 		for (int i = 0; i < imageFilters.length; i++) {
 
 			Bitmap tempbitmap = BitmapFactory.decodeFile(imgFile);
-
+			
 			// Apply Different Filters and save
 
 			Paint paint = new Paint();
 			ColorMatrix cm = new ColorMatrix();
-			Bitmap mutableBitmap = tempbitmap.copy(Bitmap.Config.ARGB_8888,
-					true);
+			
+			int width_x=tempbitmap.getWidth()/4,width_y=tempbitmap.getHeight()/4;
+			
+			Bitmap resizedbitmap = Bitmap.createScaledBitmap(tempbitmap, width_x, width_y, true);
+			
+			Log.d(TAG,"Width=="+width_x);
+//			Bitmap mutableBitmap = tempbitmap.copy(Bitmap.Config.ARGB_8888,true);
+//			
+//			Canvas canvas = new Canvas(mutableBitmap);
+			Canvas canvas = new Canvas(resizedbitmap);
 
-			Canvas canvas = new Canvas(mutableBitmap);
-
-			applySpecificFiltertoimage(imageFilters[i], mutableBitmap, canvas,
+			applySpecificFiltertoimage(imageFilters[i], resizedbitmap, canvas,
 					cm, paint, folderNum);
 
 		}
@@ -351,10 +358,33 @@ public class MainActivity extends Activity {
 					0.1309999972581863f, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 };
 			cm.set(sepMat);
 		}
+		
+		else if(filterName.equalsIgnoreCase("vignette"))
+		{
+			
+			Bitmap border = null;
+			Bitmap scaledBorder = null;
+			
+			border = BitmapFactory.decodeResource(this.getResources(), R.drawable.vignette);
+			
+			int width = canvas_bitmap.getWidth();
+			int height = canvas_bitmap.getHeight();
+			
+			scaledBorder = Bitmap.createScaledBitmap(border,width,height, false);
+			if (scaledBorder != null && border != null) {
+				canvas.drawBitmap(scaledBorder, 0, 0, new Paint());
+			}
+		}
 
 		paint.setColorFilter(new ColorMatrixColorFilter(cm));
 		Matrix matrix = new Matrix();
-		canvas.drawBitmap(canvas_bitmap, matrix, paint);
+		
+		
+		if(!filterName.equalsIgnoreCase("vignette"))
+			canvas.drawBitmap(canvas_bitmap, matrix, paint);
+		
+		
+		
 		paint = new Paint();
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(20);
@@ -365,6 +395,7 @@ public class MainActivity extends Activity {
 
 		String fileName = Environment.getExternalStorageDirectory()
 				+ "/Tesseract/Layers/Filters/" + i + "/" + filterName + ".png";
+	
 		OutputStream stream = null;
 		try {
 			stream = new FileOutputStream(fileName);
