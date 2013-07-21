@@ -73,7 +73,8 @@ public class AnimationActivity extends Activity {
 	// This has the different layers ,Each layer has an arraylist of different
 	// images ..
 	String[] imageFilters = { "sepia", "stark", "sunnyside", "cool", "worn",
-			"grayscale" ,"vignette"};
+			"grayscale","vignette","crush","sunny","night" };
+
 
 	Vector<ArrayList<ImageToLoad>> Layers;
 	LinearLayout layersLayout, filtersLayout;
@@ -81,9 +82,10 @@ public class AnimationActivity extends Activity {
 	ScrollView layersScroll;
 
 	private static HorizontalScrollView hs;
-	private int mWidth = 1160;
+	
 	Vector<Vector<ImageView>> filteredViews;
-
+    boolean isStarted=false;
+    
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -184,7 +186,7 @@ public class AnimationActivity extends Activity {
 				temp.setId(2000 + count * imageFilters.length + filternameindex);
 				temp.setOnClickListener(filtersLayerClickListener);
 				
-				temp.setImageBitmap(  addWhiteBorder(  ((BitmapDrawable)temp.getDrawable()).getBitmap(),3));
+				temp.setImageBitmap(  addBorder(  ((BitmapDrawable)temp.getDrawable()).getBitmap(),3,Color.WHITE));
 				
 				if(filternameindex!=0)
 					temp.setLayoutParams(imgViewParams);
@@ -209,12 +211,12 @@ public class AnimationActivity extends Activity {
 
 	}
 	
-	private Bitmap addWhiteBorder(Bitmap bmp, int borderSize) {
+	private Bitmap addBorder(Bitmap bmp, int borderSize,int borderColor) {
 	    Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() + borderSize * 2, bmp.getHeight() + borderSize * 2, bmp.getConfig());
 	   
 	    Canvas canvas = new Canvas(bmpWithBorder);
 	    Paint bp= new Paint();
-	    bp.setColor(Color.RED);//set a color
+	    bp.setColor(borderColor);//set a color
 	    bp.setStrokeWidth(borderSize);// set your stroke width
 	    // w and h are width and height of your imageview
 	    int w=bmp.getWidth(),h=bmp.getHeight();
@@ -500,12 +502,12 @@ public class AnimationActivity extends Activity {
 			cm.set(new float[] { 1, 0, 0, 0, -33, 0, 1, 0, 0, -8, 0, 0, 1, 0,
 					56, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter2")) {
+		} else if (filterName.equalsIgnoreCase("night")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, -42, 0, 1, 0, 0, -5, 0, 0, 1, 0,
 					-71, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter3")) {
+		} else if (filterName.equalsIgnoreCase("crush")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, -68, 0, 1, 0, 0, -52, 0, 0, 1, 0,
 					-15, 0, 0, 0, 1, 0 });
@@ -515,7 +517,7 @@ public class AnimationActivity extends Activity {
 			cm.set(new float[] { 1, 0, 0, 0, -24, 0, 1, 0, 0, 48, 0, 0, 1, 0,
 					59, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter5")) {
+		} else if (filterName.equalsIgnoreCase("sunny")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, 83, 0, 1, 0, 0, 45, 0, 0, 1, 0, 8,
 					0, 0, 0, 1, 0 });
@@ -603,9 +605,12 @@ public class AnimationActivity extends Activity {
 
 	public void onWindowFocusChanged(boolean hasFocus) {
 
-		layersLayout.removeAllViews();
-		startAnimation();
-
+		if(!isStarted)
+		{
+			layersLayout.removeAllViews();
+			startAnimation();
+			isStarted=!isStarted;
+		}
 	}
 
 	private void LoadFiles(File seperatedLayersFolder) {
@@ -686,6 +691,8 @@ public class AnimationActivity extends Activity {
 												.get(i).getHeight())), true));
 						// layerBitmaps.get(i).createScaledBitmap(src, dstWidth,
 						// dstHeight, filter)
+						
+						mimageViews.get(i).setImageBitmap(  addBorder(  ((BitmapDrawable)mimageViews.get(i).getDrawable()).getBitmap(),3,Color.WHITE));
 
 						Log.d(TAG,
 								"Width small"
@@ -742,6 +749,17 @@ public class AnimationActivity extends Activity {
 				}
 			});
 
+			/* Assign a border to the Image Layers
+			 * 
+			 */
+			
+			for(int i=0;i<mimageViews.size();i++)
+			{	
+//				ImageView temp = mimageViews.get(i);
+//				temp.setImageBitmap(  addBorder(  ((BitmapDrawable)temp.getDrawable()).getBitmap(),3));	
+			}
+			
+			
 		}
 
 		@Override
@@ -770,7 +788,7 @@ public class AnimationActivity extends Activity {
 				for (int i = 0; i < mimageViews.size(); i++) {
 					if (v.getId() == mimageViews.get(i).getId()) {
 						currentSelectedLayer = i;
-
+						
 						hs.removeAllViews();
 						filtersLayout.removeAllViews();
 
@@ -824,6 +842,9 @@ public class AnimationActivity extends Activity {
 
 			int id = v.getId() - 2000;
 			applyFiltertoView(id % imageFilters.length);
+			
+//			ImageView temp=(ImageView)v;
+//		//	temp.setImageBitmap(addBorder(  ((BitmapDrawable)temp.getDrawable()).getBitmap(),3,Color.RED));
 			Log.d(TAG, "ID" + id);
 
 		}

@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 	ProgressDialog conversionProgress;
 
 	String[] imageFilters = { "sepia", "stark", "sunnyside", "cool", "worn",
-			"grayscale","vignette" };
+			"grayscale","vignette","crush","sunny","night" };
 
 	File seperatedLayersFolder;
 
@@ -220,14 +220,12 @@ public class MainActivity extends Activity {
 			Paint paint = new Paint();
 			ColorMatrix cm = new ColorMatrix();
 			
-			int width_x=tempbitmap.getWidth()/4,width_y=tempbitmap.getHeight()/4;
+			int width_x=(int) Math.round(0.22*tempbitmap.getWidth()),width_y=(int) Math.round(0.22*tempbitmap.getHeight());
 			
 			Bitmap resizedbitmap = Bitmap.createScaledBitmap(tempbitmap, width_x, width_y, true);
 			
 			Log.d(TAG,"Width=="+width_x);
-//			Bitmap mutableBitmap = tempbitmap.copy(Bitmap.Config.ARGB_8888,true);
-//			
-//			Canvas canvas = new Canvas(mutableBitmap);
+
 			Canvas canvas = new Canvas(resizedbitmap);
 
 			applySpecificFiltertoimage(imageFilters[i], resizedbitmap, canvas,
@@ -296,12 +294,12 @@ public class MainActivity extends Activity {
 			cm.set(new float[] { 1, 0, 0, 0, -33, 0, 1, 0, 0, -8, 0, 0, 1, 0,
 					56, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter2")) {
+		} else if (filterName.equalsIgnoreCase("night")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, -42, 0, 1, 0, 0, -5, 0, 0, 1, 0,
 					-71, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter3")) {
+		} else if (filterName.equalsIgnoreCase("crush")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, -68, 0, 1, 0, 0, -52, 0, 0, 1, 0,
 					-15, 0, 0, 0, 1, 0 });
@@ -311,7 +309,7 @@ public class MainActivity extends Activity {
 			cm.set(new float[] { 1, 0, 0, 0, -24, 0, 1, 0, 0, 48, 0, 0, 1, 0,
 					59, 0, 0, 0, 1, 0 });
 
-		} else if (filterName.equalsIgnoreCase("filter5")) {
+		} else if (filterName.equalsIgnoreCase("sunny")) {
 
 			cm.set(new float[] { 1, 0, 0, 0, 83, 0, 1, 0, 0, 45, 0, 0, 1, 0, 8,
 					0, 0, 0, 1, 0 });
@@ -388,8 +386,13 @@ public class MainActivity extends Activity {
 		paint = new Paint();
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(20);
-		canvas.drawText(filterName, (float) (100 - 5 * filterName.length()),
-				80, paint);
+		String filename=filterName;
+		filename=filename.substring(0, 1).toUpperCase() + filename.substring(1);
+		
+		//input.substring(0, 1).toUpperCase() + input.substring(1);
+		
+		canvas.drawText(filename, (float) (canvas_bitmap.getWidth()/2-10*filterName.length()/2),
+				(float) (canvas_bitmap.getHeight()*0.3), paint);
 
 		/* code... */
 
