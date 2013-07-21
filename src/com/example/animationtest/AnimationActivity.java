@@ -43,6 +43,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -69,6 +70,7 @@ public class AnimationActivity extends Activity {
 	Vector<HorizontalImageScroller> scrollers;
 	Vector<HorizontalImageScrollerAdapter> LayerScrollAdapters;
 	int currentSelectedLayer = 0;
+	private Animation animFadeIn;
 
 	// This has the different layers ,Each layer has an arraylist of different
 	// images ..
@@ -121,6 +123,7 @@ public class AnimationActivity extends Activity {
 
 		// initializeHorizontalScroller();
 		initializenewHorizontallScrollView();
+		animFadeIn=AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
 
 		initializeVerticalScroller();
 
@@ -205,6 +208,7 @@ public class AnimationActivity extends Activity {
 		hs.addView(filtersLayout);
 		activityLayout.addView(hs);
 		
+		hs.setVisibility(View.INVISIBLE);
 		System.gc();
 
 		// TODO Auto-generated method stub
@@ -739,6 +743,7 @@ public class AnimationActivity extends Activity {
 															// id..1
 
 						layersLayout.addView(mimageViews.get(i));
+						//layersLayout.setVisibility(View.INVISIBLE);
 
 						Log.d(TAG,
 								"width"
@@ -749,16 +754,14 @@ public class AnimationActivity extends Activity {
 				}
 			});
 
-			/* Assign a border to the Image Layers
-			 * 
-			 */
+/*
+ * Animate the HS
+ */
 			
-			for(int i=0;i<mimageViews.size();i++)
-			{	
-//				ImageView temp = mimageViews.get(i);
-//				temp.setImageBitmap(  addBorder(  ((BitmapDrawable)temp.getDrawable()).getBitmap(),3));	
-			}
-			
+			hs.setAnimation(animFadeIn);
+			layersLayout.setAnimation(animFadeIn);
+			//layersLayout.setVisibility(View.VISIBLE);
+			hs.setVisibility(View.VISIBLE);
 			
 		}
 
