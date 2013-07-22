@@ -1,4 +1,4 @@
-package com.example.animationtest;
+package com.tesseract.animationtest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +10,7 @@ import java.util.Random;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
 
 import com.twotoasters.android.horizontalimagescroller.widget.HorizontalImageScroller;
 

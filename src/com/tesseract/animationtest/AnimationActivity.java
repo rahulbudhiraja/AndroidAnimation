@@ -1,9 +1,10 @@
-package com.example.animationtest;
+package com.tesseract.animationtest;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
+
 
 import com.twotoasters.android.horizontalimagescroller.image.ImageToLoad;
 import com.twotoasters.android.horizontalimagescroller.image.ImageToLoadDrawableResource;
